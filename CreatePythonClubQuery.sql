@@ -3,10 +3,10 @@
 /*
 Data Requirements:
 
-Meetings Schedule: place, time, Date,speakers, subject, duration, 
-Meeting minutes:  participants (all the above), minutes, Topics to Follow up, results,
+>Meetings Schedule: place, time, Date,speakers, subject, duration, 
+>Meeting minutes:  participants (all the above), minutes, Topics to Follow up, results,
 Meetup: meetup place, time, Date, participants, speakers, subject, duration, contact, post date, member who posted
-Members: MemberId, name, email, member since, leadership role
+>Members: MemberId, name, email, member since, leadership role
 Posting: event
 Resources and Tutorials: member who posted, Post date, subject, URL, description, rating
 General Announcements: who posted, topic, Date Posted, Text
@@ -47,6 +47,7 @@ View most things, not member emails, not reports on inappropriate material.
 -- Tables with foreign keys must be dropped first
 DROP TABLE IF EXISTS pythonclub.attendance;
 DROP TABLE IF EXISTS pythonclub.meetingminutes;
+-- Drop table meetings schedule
 
 -- Primary keys next
 DROP TABLE IF EXISTS pythonclub.members;
@@ -88,6 +89,19 @@ CREATE TABLE meetingminutes (
     TopicsToFollowUp int, -- I don't know what this is supposed to be
     results int -- Don't know what this is either
 );
+
+CREATE TABLE meetings_schedule (
+	MeetingPlace VARCHAR(45),
+    MeetingTime TIME,
+    MeetingDate DATE,
+    
+    FK_idMembers_Speakers INT NOT NULL,
+    FOREIGN KEY (FK_idMembers_Speakers) REFERENCES members(PK_idMembers),
+    
+    MeetingSubject VARCHAR(45),
+    MeetingDuration VARCHAR(45) -- INT and TIME don't really make sense for duration and the data-entry person can just write it in plaintext
+);
+
 
 
 -- MeetingMinutes
